@@ -1,0 +1,24 @@
+<ng-template #rt let-r="result" let-t="term">
+  <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>/
+  <ngb-highlight [result]="r.phoneNumber" [term]="t"></ngb-highlight>/
+  <ngb-highlight [result]="r.email" [term]="t"></ngb-highlight>
+</ng-template>
+
+
+<div style="width: 600px">
+  <label>Search for a state:</label>
+
+  <label for="typeahead-template">Search for a state:</label>
+  <select (change)="selectedStore($event)">
+    <option *ngFor="let store of storeList" [value]="store | json">{{store.name}}</option>
+  </select>
+  <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
+    [resultTemplate]="rt" [inputFormatter]="formatterName" />
+  <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
+    [resultTemplate]="rt" [inputFormatter]="formatterPhone" />
+  <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"
+    [resultTemplate]="rt" [inputFormatter]="formatterEmail" />
+
+  <hr>
+  <pre>Model: {{ model | json }}</pre>
+</div>

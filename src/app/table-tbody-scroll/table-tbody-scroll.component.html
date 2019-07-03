@@ -1,0 +1,82 @@
+<h1>Table Tbody Scroll</h1>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" class="check">
+          <input type="checkbox" />
+        </th>
+        <th colspan="3">옵션명</th>
+        <th rowspan="2">옵션가</th>
+        <th rowspan="2">재고수량</th>
+        <th rowspan="2" class="sell-status">판매상태</th>
+        <th rowspan="2" class="table-delete">삭제</th>
+      </tr>
+      <tr>
+        <th>색상</th>
+        <th>사이즈</th>
+        <th>캐릭터</th>
+      </tr>
+    </thead>
+  </table>
+
+  <table>
+    <tbody>
+      <tr *ngFor="let optItem of optItems">
+        <td class="check"><input type="checkbox" /></td>
+        <td>블랙</td>
+        <td>스몰</td>
+        <td>피카츄</td>
+        <td>0</td>
+        <td>999</td>
+        <td class="sell-status">판매중</td>
+        <td class="table-delete"><button>x</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+
+<!-- <h1>Table Tbody Scroll</h1>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" class="check">
+          <input type="checkbox" />
+        </th>
+        <th colspan="3">옵션명</th>
+        <th rowspan="2">옵션가</th>
+        <th rowspan="2">재고수량</th>
+        <th rowspan="2" class="sell-status">판매상태</th>
+        <th rowspan="2" class="table-delete">삭제</th>
+      </tr>
+      <tr>
+        <th>색상</th>
+        <th>사이즈</th>
+        <th>캐릭터</th>
+      </tr>
+    </thead>
+    <div class="scrollTableBody">
+      <tbody>
+        <tr *ngFor="let optItem of optItems">
+          <td class="check"><input type="checkbox" /></td>
+          <td>블랙</td>
+          <td>스몰</td>
+          <td>피카츄</td>
+          <td>0</td>
+          <td>999</td>
+          <td class="sell-status">판매중</td>
+          <td class="table-delete"><button>x</button></td>
+        </tr>
+      </tbody>
+    </div>
+  </table>
+</div> -->

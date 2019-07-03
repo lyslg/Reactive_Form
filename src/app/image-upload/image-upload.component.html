@@ -1,0 +1,19 @@
+<h3>Angular 7 Image Preview before Upload:</h3>
+<span style="color:red;" *ngIf="message">{{message}}</span>
+<input style="display: none;" type="file" accept='image/*' (change)="detectFiles($event)" value="one" #fileInput />
+<!-- <input style="display: none;" type="file" accept='image/*' (change)="preview($event.target.files)" value="one"
+  #fileInput /> -->
+<button (click)="fileInput.click()">Pick File</button>
+<div>
+  <img [src]="mainImg[0].url" height="200" *ngIf="mainImg.length">
+</div>
+
+
+<h3>Angular 7 Multiple Image Preview before Upload:</h3>
+<input type="file" multiple accept='image/*' (change)="detectFiles($event)" value="multiple">
+<div>
+  <ng-container *ngFor="let img of additionalImg">
+    <img [src]="img.url" width="180">
+  </ng-container>
+
+</div>

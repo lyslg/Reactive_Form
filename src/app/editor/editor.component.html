@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="title">상세설명</div>
+  <div class="section"></div>
+  <div style="height:0;">
+    <button [style.top]="plusTop" class="plus-btn" (click)="test($event)">a</button>
+  </div>
+  <div class="background">
+    <div class="editor">
+      <div contenteditable (keydown.enter)="onkeyDown($event)">
+        <p (click)="test($event)">asd</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input (keydown)="onkeyDown($event)" (click)="test($event)" />

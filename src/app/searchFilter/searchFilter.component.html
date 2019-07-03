@@ -1,0 +1,60 @@
+<app-search-bar (changeConfirmStatus)="changeConfirmStatus($event)" (clickSearchBtn)="clickSearchBtn($event)">
+</app-search-bar>
+
+<div class="table-container">
+  <table>
+
+    <tr>
+      <th width="4%">
+        <label class="checkContainer">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>
+      </th>
+      <th width="10%">상품코드</th>
+      <th width="40%">상품명</th>
+      <th>일반회원가</th>
+      <th>정액회원가</th>
+      <th>소비자가</th>
+      <th>마진율</th>
+      <th>재고</th>
+      <th>상태</th>
+      <th>입점업체</th>
+    </tr>
+
+    <ng-container *ngFor="let i of productItems">
+      <ng-container *ngFor="let item of filter(productList,filterConfirmStatus) 
+          | searchProduct: filterProdObj
+          let i = index">
+        <tr>
+          <td>
+            <label class="checkContainer">
+              <input type="checkbox">
+              <span class="checkmark"></span>
+            </label>
+          </td>
+          <td class="routerSpan" [routerLink]="[ '/pages/product/list', i, 'modify' ]">190422000015</td>
+          <td>
+            <div class="tableMain">
+              <img src="http://via.placeholder.com/50" />
+              <span class="routerSpan" [routerLink]="[ '/pages/product/list', i, 'modify' ]">
+                {{item.basic.prodName}}
+              </span>
+            </div>
+          </td>
+          <td>{{item.price.basicPrice}}</td>
+          <td>{{item.price.membershipPrice}}</td>
+          <td>{{item.price.retailPrice}}</td>
+          <td>{{item.price.profitRate}}%</td>
+          <td>123</td>
+          <td>{{item.confirmStatus}}</td>
+          <td>{{item.basic.store.name}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+
+
+  </table>
+
+</div>
