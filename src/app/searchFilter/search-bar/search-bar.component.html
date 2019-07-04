@@ -1,59 +1,61 @@
 <div>
   <ng-container *ngFor="let item of filterBtnList; let i = index">
     <button [ngClass]="filterConfirmStatus.includes(item) ? 'selected-filter-btn' : 'filter-btn'"
-      (click)="selectBtn($event)" [value]="item">{{item}}</button>
+      (click)="changeConfirmStatusbtn($event)" [value]="item">{{item}}</button>
   </ng-container>
 </div>
 
-<ng-container [formGroup]="prodListFilterForm">
-
+<form [formGroup]="prodListFilterForm" (ngSubmit)="filter()">
+  <!-- <pre>
+    {{prodListFilterForm.value | json}}
+  </pre> -->
   <div class="form">
     <div class="formMargin">
       <div class="form-group">
         <label>상품명</label>
-        <input type="text" class="form-control" [(ngModel)]="filterProdName">
+        <input type="text" class="form-control" formControlName="prodName">
       </div>
     </div>
     <div class="formMargin">
       <div class="form-group">
         <label>태그</label>
-        <input type="text" class="form-control" [(ngModel)]="filterProdTag">
+        <input type="text" class="form-control" formControlName="prodTag">
       </div>
     </div>
     <div class="formMargin">
       <div class="form-group">
         <label>입점업체</label>
-        <input type="text" class="form-control" [(ngModel)]="filterStore">
+        <input type="text" class="form-control" formControlName="store">
       </div>
     </div>
     <div class="formMargin">
       <div class="form-group">
         <label>브랜드</label>
-        <input type="text" class="form-control" [(ngModel)]="filterBrand">
+        <input type="text" class="form-control" formControlName="prodBrand">
       </div>
     </div>
     <div class="formMargin">
       <div class="form-group">
         <label>모델명</label>
-        <input type="text" class="form-control" [(ngModel)]="filterProdModel">
+        <input type="text" class="form-control" formControlName="prodModelName">
       </div>
     </div>
   </div>
   <div class="form">
-    <div class="form-group">
+    <div class="form-group" formGroupName="additionalCheck">
       <label>검색유형</label>
       <span class="marginLeft"></span>
 
       <span class="marginLeft">
-        <input type="checkbox" [(ngModel)]="additionalCheck.rental" />
+        <input type="checkbox" formControlName="rental" />
         <label>렌탈</label>
       </span>
       <span class="marginLeft">
-        <input type="checkbox" [(ngModel)]="additionalCheck.nonMemberPrice" />
+        <input type="checkbox" formControlName="nonMemberPrice" />
         <label>비회원</label>
       </span>
       <span class="marginLeft">
-        <input type="checkbox" [(ngModel)]="additionalCheck.openMarket" />
+        <input type="checkbox" formControlName="openMarket" />
         <label>오픈마켓</label>
       </span>
     </div>
@@ -62,7 +64,7 @@
   <div class="form">
     <div class="form-group">
       <label>배송비</label>
-      <select class="form-control" (change)="selectedDeliveryCost($event)">
+      <select class="form-control" formControlName="deliveryCost">
         <option value="">전체</option>
         <option value="free">무료</option>
         <option value="noFree">유료</option>
@@ -72,10 +74,10 @@
 
     <div class="form-group">
       <label>묶음배송</label>
-      <select class="form-control" (change)="selectedDeliveryBundle($event)">
+      <select class="form-control" formControlName="deliveryBundle">
         <option value="">전체</option>
-        <option [value]="true">가능</option>
-        <option [value]="false">불가능</option>
+        <option value="true">가능</option>
+        <option value="false">불가능</option>
       </select>
     </div>
   </div>
@@ -83,30 +85,30 @@
   <div class="form">
     <span class="marginLeft">결제분류</span>
     <label>
-      <input type="radio" name="paymentWay" value="" (change)="selectedPaymentWay($event)" checked>전체
+      <input type="radio" formControlName="paymentWay" value="" checked>전체
     </label>
     <span class="marginLeft"></span>
     <label>
-      <input type="radio" name="paymentWay" value="beforePayment" (change)="selectedPaymentWay($event)">선결제
+      <input type="radio" formControlName="paymentWay" value="beforePayment">선결제
     </label>
     <span class="marginLeft"></span>
     <label>
-      <input type="radio" name="paymentWay" value="afterPayment" (change)="selectedPaymentWay($event)">후결제
+      <input type="radio" formControlName="paymentWay" value="afterPayment">후결제
     </label>
   </div>
 
   <div class="form">
     <span class="marginLeft">과세구분</span>
     <label>
-      <input type="radio" name="tax" value="" (change)="selectedTax($event)" checked>전체
+      <input type="radio" formControlName="tax" value="" checked>전체
     </label>
     <span class="marginLeft"></span>
     <label>
-      <input type="radio" name="tax" value="tax" (change)="selectedTax($event)">과세
+      <input type="radio" formControlName="tax" value="tax">과세
     </label>
     <span class="marginLeft"></span>
     <label>
-      <input type="radio" name="tax" value="taxFree" (change)="selectedTax($event)">비과세
+      <input type="radio" formControlName="tax" value="taxFree">비과세
     </label>
   </div>
 
@@ -114,8 +116,10 @@
     <div class="formMargin">
       <div class="form-group">
         <label>마진율</label>
-        <input type="number" class="form-control" [(ngModel)]="profitRange[0]">
-        <input type="number" class="form-control" [(ngModel)]="profitRange[1]">
+        <input type="number" class="form-control" [(ngModel)]="prodListFilterForm.value.profitRange[0]"
+          [ngModelOptions]="{standalone: true}">
+        <input type="number" class="form-control" [(ngModel)]="prodListFilterForm.value.profitRange[1]"
+          [ngModelOptions]="{standalone: true}">
       </div>
     </div>
   </div>
@@ -123,7 +127,7 @@
   <div class=form>
     <div class="form-group">
       <label>적용회원</label>
-      <select class="form-control" (change)="selectedmembership($event)">
+      <select class="form-control" formControlName="membership">
         <option value="">전체</option>
         <option value="premium">프리미엄</option>
         <option value="diamond">다이아</option>
@@ -133,146 +137,8 @@
       </select>
     </div>
   </div>
-</ng-container>
 
-<div class="btn">
-  <button class="filter-btn" (click)="filter()">검색</button>
-</div>
-
-
-<!-- <div>
-  <ng-container *ngFor="let item of filterBtnList; let i = index">
-    <button [ngClass]="filterConfirmStatus.includes(item) ? 'selected-filter-btn' : 'filter-btn'"
-      (click)="selectBtn($event)" [value]="item">{{item}}</button>
-  </ng-container>
-</div>
-
-<div class="form">
-  <div class="formMargin">
-    <div class="form-group">
-      <label>상품명</label>
-      <input type="text" class="form-control" [(ngModel)]="filterProdName">
-    </div>
+  <div class="btn">
+    <button class="filter-btn" (click)="filter()">검색</button>
   </div>
-  <div class="formMargin">
-    <div class="form-group">
-      <label>태그</label>
-      <input type="text" class="form-control" [(ngModel)]="filterProdTag">
-    </div>
-  </div>
-  <div class="formMargin">
-    <div class="form-group">
-      <label>입점업체</label>
-      <input type="text" class="form-control" [(ngModel)]="filterStore">
-    </div>
-  </div>
-  <div class="formMargin">
-    <div class="form-group">
-      <label>브랜드</label>
-      <input type="text" class="form-control" [(ngModel)]="filterBrand">
-    </div>
-  </div>
-  <div class="formMargin">
-    <div class="form-group">
-      <label>모델명</label>
-      <input type="text" class="form-control" [(ngModel)]="filterProdModel">
-    </div>
-  </div>
-</div>
-<div class="form">
-  <div class="form-group">
-    <label>검색유형</label>
-    <span class="marginLeft"></span>
-
-    <span class="marginLeft">
-      <input type="checkbox" [(ngModel)]="additionalCheck.rental" />
-      <label>렌탈</label>
-    </span>
-    <span class="marginLeft">
-      <input type="checkbox" [(ngModel)]="additionalCheck.nonMemberPrice" />
-      <label>비회원</label>
-    </span>
-    <span class="marginLeft">
-      <input type="checkbox" [(ngModel)]="additionalCheck.openMarket" />
-      <label>오픈마켓</label>
-    </span>
-  </div>
-
-</div>
-<div class="form">
-  <div class="form-group">
-    <label>배송비</label>
-    <select class="form-control" (change)="selectedDeliveryCost($event)">
-      <option value="">전체</option>
-      <option value="free">무료</option>
-      <option value="noFree">유료</option>
-    </select>
-  </div>
-  <span class="marginLeft"></span>
-
-  <div class="form-group">
-    <label>묶음배송</label>
-    <select class="form-control" (change)="selectedDeliveryBundle($event)">
-      <option value="">전체</option>
-      <option [value]="true">가능</option>
-      <option [value]="false">불가능</option>
-    </select>
-  </div>
-</div>
-
-<div class="form">
-  <span class="marginLeft">결제분류</span>
-  <label>
-    <input type="radio" name="paymentWay" value="" (change)="selectedPaymentWay($event)" checked>전체
-  </label>
-  <span class="marginLeft"></span>
-  <label>
-    <input type="radio" name="paymentWay" value="beforePayment" (change)="selectedPaymentWay($event)">선결제
-  </label>
-  <span class="marginLeft"></span>
-  <label>
-    <input type="radio" name="paymentWay" value="afterPayment" (change)="selectedPaymentWay($event)">후결제
-  </label>
-</div>
-
-<div class="form">
-  <span class="marginLeft">과세구분</span>
-  <label>
-    <input type="radio" name="tax" value="" (change)="selectedTax($event)" checked>전체
-  </label>
-  <span class="marginLeft"></span>
-  <label>
-    <input type="radio" name="tax" value="tax" (change)="selectedTax($event)">과세
-  </label>
-  <span class="marginLeft"></span>
-  <label>
-    <input type="radio" name="tax" value="taxFree" (change)="selectedTax($event)">비과세
-  </label>
-</div>
-
-<div class=form>
-  <div class="formMargin">
-    <div class="form-group">
-      <label>마진율</label>
-      <input type="number" class="form-control" [(ngModel)]="profitRange[0]">
-      <input type="number" class="form-control" [(ngModel)]="profitRange[1]">
-    </div>
-  </div>
-</div>
-
-<div class=form>
-  <div class="form-group">
-    <label>적용회원</label>
-    <select class="form-control" (change)="selectedmembership($event)">
-      <option value="">전체</option>
-      <option value="premium">프리미엄</option>
-      <option value="diamond">다이아</option>
-      <option value="gold">골드</option>
-      <option value="silver">실버</option>
-      <option value="nonMember">비회원</option>
-    </select>
-  </div>
-</div>
-<div class="btn">
-  <button class="filter-btn" (click)="filter()">검색</button>
-</div> -->
+</form>

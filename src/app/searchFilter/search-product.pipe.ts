@@ -9,9 +9,9 @@ export class SearchProductPipe implements PipeTransform {
       prodName,
       prodTag,
       store,
-      brand,
-      prodModel,
-      additionalCheck,
+      prodBrand,
+      prodModelName,
+      additionalCheckArr,
       deliveryCost,
       deliveryBundle,
       paymentWay,
@@ -19,7 +19,7 @@ export class SearchProductPipe implements PipeTransform {
       profitRange,
       membership
     } = filterProdObj;
-    // console.log("filterProdObj (pipe)::", filterProdObj);
+    console.log("filterProdObj (pipe)::", filterProdObj);
     if (!products) return [];
     if (prodName) {
       filterProdObj.prodName = prodName.toLocaleLowerCase();
@@ -42,31 +42,34 @@ export class SearchProductPipe implements PipeTransform {
       ];
     }
 
-    if (brand) {
-      filterProdObj.brand = brand.toLocaleLowerCase();
+    if (prodBrand) {
+      filterProdObj.prodBrand = prodBrand.toLocaleLowerCase();
       products = [
         ...products.filter(product =>
-          product.basic.brandName.toLocaleLowerCase().includes(brand)
+          product.basic.brandName.toLocaleLowerCase().includes(prodBrand)
         )
       ];
     }
 
-    if (prodModel) {
-      filterProdObj.prodModel = prodModel.toLocaleLowerCase();
+    if (prodModelName) {
+      filterProdObj.prodModelName = prodModelName.toLocaleLowerCase();
       products = [
         ...products.filter(product =>
-          product.basic.prodModelName.toLocaleLowerCase().includes(prodModel)
+          product.basic.prodModelName
+            .toLocaleLowerCase()
+            .includes(prodModelName)
         )
       ];
     }
 
-    if (additionalCheck) {
-      !Object.values(additionalCheck).every(i => i === false) &&
-        (products = [
-          ...products.filter(product =>
-            additionalCheck.every(check => product.basic.additionalCheck[check])
+    if (additionalCheckArr) {
+      products = [
+        ...products.filter(product =>
+          additionalCheckArr.every(
+            check => product.basic.additionalCheck[check]
           )
-        ]);
+        )
+      ];
     }
 
     if (deliveryCost) {
@@ -103,7 +106,7 @@ export class SearchProductPipe implements PipeTransform {
     }
 
     if (profitRange) {
-      if (profitRange.every(i => typeof i === "number")) {
+      if (profitRange.length) {
         products = [
           ...products.filter(
             product =>

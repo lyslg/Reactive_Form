@@ -14,10 +14,6 @@ export class SearchBarComponent implements OnInit {
   @Output() changeConfirmStatus = new EventEmitter();
   @Output() clickSearchBtn = new EventEmitter();
 
-  changeConfirmStatusbtn() {
-    this.changeConfirmStatus.emit(this.filterConfirmStatus);
-  }
-
   filterBtnList: string[] = [
     "전체",
     "승인대기",
@@ -29,43 +25,28 @@ export class SearchBarComponent implements OnInit {
   ];
 
   public filterConfirmStatus: Array<string> = ["전체"];
-  public filterProdContents = {};
-  public filterProdName = "";
-  public filterProdTag = "";
-  public filterStore = "";
-  public filterBrand = "";
-  public filterProdModel = "";
-  public additionalCheck = {
-    rental: false,
-    nonMemberPrice: false,
-    openMarket: false
-  };
-  public deliveryCost = "";
-  public deliveryBundle = "";
-  public paymentWay = "";
-  public tax = "";
-  public profitRange = ["", ""];
-  public membership = "";
 
   prodListFilterForm = this._fb.group({
     prodName: [""],
-    prodTags: [""],
+    prodTag: [""],
     store: [""],
+    prodBrand: [""],
     prodModelName: [""],
     additionalCheck: this._fb.group({
-      rental: [""],
-      nonMemberPrice: [""],
-      openMarket: [""]
+      rental: false,
+      nonMemberPrice: false,
+      openMarket: false
     }),
+    additionalCheckArr: [""],
     deliveryCost: [""],
     deliveryBundle: [""],
     paymentWay: [""],
     tax: [""],
-    profitRange: [""],
+    profitRange: this._fb.array([]),
     membership: [""]
   });
 
-  selectBtn(e) {
+  changeConfirmStatusbtn(e) {
     let v = e.target.value;
     let confirmArr = this.filterConfirmStatus;
     v === "전체"
@@ -81,53 +62,20 @@ export class SearchBarComponent implements OnInit {
       !this.filterConfirmStatus.length) &&
       (this.filterConfirmStatus = ["전체"]);
 
-    this.changeConfirmStatusbtn();
+    this.changeConfirmStatus.emit(this.filterConfirmStatus);
   }
 
   filter() {
-    this.filterProdContents["prodName"] = this.filterProdName;
-    this.filterProdContents["prodTag"] = this.filterProdTag;
-    this.filterProdContents["store"] = this.filterStore;
-    this.filterProdContents["brand"] = this.filterBrand;
-    this.filterProdContents["prodModel"] = this.filterProdModel;
     this.covertCheckItem();
-    this.filterProdContents["deliveryCost"] = this.deliveryCost;
-    this.filterProdContents["deliveryBundle"] = this.deliveryBundle;
-    this.filterProdContents["paymentWay"] = this.paymentWay;
-    this.filterProdContents["tax"] = this.tax;
-    this.filterProdContents["profitRange"] = this.profitRange;
-    this.filterProdContents["membership"] = this.membership;
-    this.clickSearchBtn.emit(this.filterProdContents);
-
-    // console.log("this.filterProdContents ::", this.filterProdContents);
+    this.clickSearchBtn.emit(this.prodListFilterForm.value);
   }
 
   covertCheckItem() {
     let arr = [];
-    for (let key in this.additionalCheck) {
-      this.additionalCheck[key] === true && arr.push(key);
+    for (let key in this.prodListFilterForm.value.additionalCheck) {
+      this.prodListFilterForm.value.additionalCheck[key] === true &&
+        arr.push(key);
     }
-    this.filterProdContents["additionalCheck"] = arr;
-    console.log("this what?", this.filterProdContents["additionalCheck"]);
-  }
-
-  selectedDeliveryCost(e) {
-    this.deliveryCost = e.target.value;
-  }
-
-  selectedDeliveryBundle(e) {
-    this.deliveryBundle = e.target.value;
-  }
-
-  selectedPaymentWay(e) {
-    this.paymentWay = e.target.value;
-  }
-
-  selectedTax(e) {
-    this.tax = e.target.value;
-  }
-
-  selectedmembership(e) {
-    this.membership = e.target.value;
+    this.prodListFilterForm.get("additionalCheckArr").setValue(arr);
   }
 }
