@@ -108,7 +108,63 @@ export const PRODUCTLIST = [
         { name: "색상", value: "빨강,노랑,검정" },
         { name: "사이즈", value: "s,m,l" }
       ],
-      optionListSort: ""
+      optionListSort: "",
+      allOptionItemList: [
+        {
+          id: 0,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "small" }
+        },
+        {
+          id: 1,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "small" }
+        },
+        {
+          id: 2,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "small" }
+        },
+        {
+          id: 3,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "medium" }
+        },
+        {
+          id: 4,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "medium" }
+        },
+        {
+          id: 5,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "medium" }
+        },
+        {
+          id: 6,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "검정", 사이즈: "large" }
+        },
+        {
+          id: 7,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "빨강", 사이즈: "large" }
+        },
+        {
+          id: 8,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "노랑", 사이즈: "large" }
+        }
+      ]
     },
     imageUpload: {
       mainImg: [{}],
@@ -241,7 +297,63 @@ export const PRODUCTLIST = [
         { name: "색상", value: "빨강,노랑,검정" },
         { name: "사이즈", value: "s,m,l" }
       ],
-      optionListSort: ""
+      optionListSort: "",
+      allOptionItemList: [
+        {
+          id: 0,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "small" }
+        },
+        {
+          id: 1,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "small" }
+        },
+        {
+          id: 2,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "small" }
+        },
+        {
+          id: 3,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "medium" }
+        },
+        {
+          id: 4,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "medium" }
+        },
+        {
+          id: 5,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "medium" }
+        },
+        {
+          id: 6,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "검정", 사이즈: "large" }
+        },
+        {
+          id: 7,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "빨강", 사이즈: "large" }
+        },
+        {
+          id: 8,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "노랑", 사이즈: "large" }
+        }
+      ]
     },
     imageUpload: {
       mainImg: [{}],
@@ -374,7 +486,63 @@ export const PRODUCTLIST = [
         { name: "색상", value: "빨강,노랑,검정" },
         { name: "사이즈", value: "s,m,l" }
       ],
-      optionListSort: ""
+      optionListSort: "",
+      allOptionItemList: [
+        {
+          id: 0,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "small" }
+        },
+        {
+          id: 1,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "small" }
+        },
+        {
+          id: 2,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "small" }
+        },
+        {
+          id: 3,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "검정", 사이즈: "medium" }
+        },
+        {
+          id: 4,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "빨강", 사이즈: "medium" }
+        },
+        {
+          id: 5,
+          optPrice: { unit: "+", price: 0 },
+          optStock: 100,
+          option: { 색상: "노랑", 사이즈: "medium" }
+        },
+        {
+          id: 6,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "검정", 사이즈: "large" }
+        },
+        {
+          id: 7,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "빨강", 사이즈: "large" }
+        },
+        {
+          id: 8,
+          optPrice: { unit: "+", price: 1500 },
+          optStock: 80,
+          option: { 색상: "노랑", 사이즈: "large" }
+        }
+      ]
     },
     imageUpload: {
       mainImg: [{}],
